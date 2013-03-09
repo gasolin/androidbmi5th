@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BMI</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="bmi_height">身高 (cm)</string>
+    <string name="bmi_weight">體重 (kg)</string>
+    <string name="bmi_btn">計算BMI值</string>
+    <string name="bmi_result">你的 BMI 值是</string>
+    <!-- advice -->
+    <string name="advice_light">你該多吃點</string>
+    <string name="advice_average">體型很棒喔</string>
+    <string name="advice_heavy">你該節食了</string>
+    <!-- other -->
+    <string name="action_settings">Settings</string>
+</resources>
