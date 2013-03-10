@@ -51,16 +51,17 @@ public class MainActivity extends Activity {
             show_result.setText(getText(R.string.bmi_result) + nf.format(BMI));
 
             // Give health advice
-            TextView txt_suggest = (TextView)findViewById(R.id.suggest);
             if (BMI > 25) {
-            	txt_suggest.setText(R.string.advice_heavy);
+            	show_suggest.setText(R.string.advice_heavy);
             } else if (BMI < 20) {
-            	txt_suggest.setText(R.string.advice_light);
+            	show_suggest.setText(R.string.advice_light);
             } else {
-            	txt_suggest.setText(R.string.advice_average);
+            	show_suggest.setText(R.string.advice_average);
             }
         }
     };
+    
+//    protected static final int MENU_SETTINGS = Menu.FIRST;
     
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
