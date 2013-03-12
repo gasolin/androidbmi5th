@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,7 +68,27 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+//		menu.add(0, MENU_SETTINGS, 100, R.string.action_settings);
 		return true;
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()) {
+		case R.id.action_about:
+            openOptionsDialog();
+            break;
+	   	case R.id.action_close:
+	            finish();
+	            break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	public void openOptionsDialog() {
+		
+	};
+
 
 }
