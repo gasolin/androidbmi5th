@@ -47,28 +47,36 @@ public class MainActivity extends Activity {
     }
 	
 	private Button.OnClickListener calcBMI = new Button.OnClickListener() { 
-        public void onClick(View v) {
-            DecimalFormat nf = new DecimalFormat("0.00");
-            try {
-            double height = Double.parseDouble(num_height.getText().toString()) / 100;
-            double weight = Double.parseDouble(num_weight.getText().toString());
-            double BMI = weight / (height * height);
-
-            // Present result
-            show_result.setText(getText(R.string.bmi_result) + nf.format(BMI));
-
-            // Give health advice
-            if (BMI > 25) {
-            	show_suggest.setText(R.string.advice_heavy);
-            } else if (BMI < 20) {
-            	show_suggest.setText(R.string.advice_light);
-            } else {
-            	show_suggest.setText(R.string.advice_average);
-            }
-            } catch (Exception obj) {
-            	Toast.makeText(MainActivity.this, R.string.input_error, Toast.LENGTH_SHORT).show();
-            }
-        }
+//        public void onClick(View v) {
+//            DecimalFormat nf = new DecimalFormat("0.00");
+//            try {
+//            double height = Double.parseDouble(num_height.getText().toString()) / 100;
+//            double weight = Double.parseDouble(num_weight.getText().toString());
+//            double BMI = weight / (height * height);
+//
+//            // Present result
+//            show_result.setText(getText(R.string.bmi_result) + nf.format(BMI));
+//
+//            // Give health advice
+//            if (BMI > 25) {
+//            	show_suggest.setText(R.string.advice_heavy);
+//            } else if (BMI < 20) {
+//            	show_suggest.setText(R.string.advice_light);
+//            } else {
+//            	show_suggest.setText(R.string.advice_average);
+//            }
+//            } catch (Exception obj) {
+//            	Toast.makeText(MainActivity.this, R.string.input_error, Toast.LENGTH_SHORT).show();
+//            }
+//        }
+		
+		public void onClick(View v) {
+			//Switch to report page
+	        Intent intent = new Intent();
+//	        intent.setClass(MainActivity.this, ReportActivity.class);
+	        intent.setAction("bmi.action.report");
+	        startActivity(intent);
+		}
     };
     
 //    protected static final int MENU_SETTINGS = Menu.FIRST;
