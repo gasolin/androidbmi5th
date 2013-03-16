@@ -3,6 +3,8 @@ package com.demo.android.bmi;
 import java.text.DecimalFormat;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -44,6 +47,7 @@ public class MainActivity extends Activity {
 	private Button.OnClickListener calcBMI = new Button.OnClickListener() { 
         public void onClick(View v) {
             DecimalFormat nf = new DecimalFormat("0.00");
+            try {
             double height = Double.parseDouble(num_height.getText().toString()) / 100;
             double weight = Double.parseDouble(num_weight.getText().toString());
             double BMI = weight / (height * height);
@@ -58,6 +62,9 @@ public class MainActivity extends Activity {
             	show_suggest.setText(R.string.advice_light);
             } else {
             	show_suggest.setText(R.string.advice_average);
+            }
+            } catch (Exception obj) {
+            	Toast.makeText(MainActivity.this, R.string.input_error, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -86,9 +93,20 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void openOptionsDialog() {
-		
-	};
+//	public void openOptionsDialog() {
+//		AlertDialog.Builder dialog = new  AlertDialog.Builder(MainActivity.this);
+//	    dialog.setTitle(R.string.about_title);
+//	    dialog.setMessage(R.string.about_msg);
+//	    dialog.setPositiveButton(android.R.string.ok,
+//	    	new DialogInterface.OnClickListener(){
+//	    	    public void onClick(DialogInterface dialoginterface, int i){}
+//	        });
+//	    dialog.show();
+//	};
 
+	private void openOptionsDialog() {
+	    Toast popup = Toast.makeText(MainActivity.this, R.string.app_name, Toast.LENGTH_SHORT);
+	    popup.show();
+	}
 
 }
