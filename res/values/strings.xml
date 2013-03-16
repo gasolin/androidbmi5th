@@ -19,4 +19,6 @@
     <!-- dialog -->
     <string name="about_title">關於 Android BMI</string>
     <string name="about_msg">Android BMI Calc</string>
+    <string name="label_homepage">首頁</string>
+    <string name="homepage_uri">http://android.gasolin.idv.tw/</string>
 </resources>

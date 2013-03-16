@@ -5,6 +5,8 @@ import java.text.DecimalFormat;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -93,20 +95,34 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-//	public void openOptionsDialog() {
-//		AlertDialog.Builder dialog = new  AlertDialog.Builder(MainActivity.this);
-//	    dialog.setTitle(R.string.about_title);
-//	    dialog.setMessage(R.string.about_msg);
-//	    dialog.setPositiveButton(android.R.string.ok,
-//	    	new DialogInterface.OnClickListener(){
-//	    	    public void onClick(DialogInterface dialoginterface, int i){}
-//	        });
-//	    dialog.show();
-//	};
+	public void openOptionsDialog() {
+		AlertDialog.Builder dialog = new  AlertDialog.Builder(MainActivity.this);
+	    dialog.setTitle(R.string.about_title);
+	    dialog.setMessage(R.string.about_msg);
+	    dialog.setPositiveButton(android.R.string.ok,
+	    	new DialogInterface.OnClickListener(){
+	    	    public void onClick(DialogInterface dialoginterface, int i){}
+	        });
+	    dialog.setNegativeButton(R.string.label_homepage,
+		    	new DialogInterface.OnClickListener(){
+		    	    public void onClick(DialogInterface dialoginterface, int i){
+		    	    	// open browser
+//		                Uri uri = Uri.parse("http://android.gasolin.idv.tw/");
+		    	    	// open map
+//		    	    	Uri uri = Uri.parse("geo:25.047192, 121.516981?z=17");
+		    	    	// phone call
+//		    	        Uri uri = Uri.parse("tel:12345678"); 
+		    	    	Uri uri = Uri.parse(getString(R.string.homepage_uri));
+		                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		                startActivity(intent);
+		    	    }
+		        });
+	    dialog.show();
+	};
 
-	private void openOptionsDialog() {
-	    Toast popup = Toast.makeText(MainActivity.this, R.string.app_name, Toast.LENGTH_SHORT);
-	    popup.show();
-	}
+//	private void openOptionsDialog() {
+//	    Toast popup = Toast.makeText(MainActivity.this, R.string.app_name, Toast.LENGTH_SHORT);
+//	    popup.show();
+//	}
 
 }
