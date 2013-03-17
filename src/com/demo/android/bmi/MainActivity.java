@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.v(TAG,"onCreate");
 		setContentView(R.layout.activity_main);
 		
 		initViews();
@@ -140,4 +141,33 @@ public class MainActivity extends Activity {
 //	    popup.show();
 //	}
 
+	public void onRestart() {
+        super.onRestart();
+        Log.v(TAG,"onReStart");
+    }
+
+    public void onStart() {
+        super.onStart();
+        Log.v(TAG,"onStart");
+    }
+
+    public void onResume() {
+        super.onResume();
+        Log.v(TAG,"onResume");
+    }
+
+    public void onPause() {
+        super.onPause();
+        Log.v(TAG,"onPause");
+    }
+
+    public void onStop() {
+        super.onStop();
+        Log.v(TAG,"onStop");
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        Log.v(TAG,"onDestroy");
+    }
 }
