@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 //	private static final String TAG = "Main";
 	private static final String TAG = MainActivity.class.getSimpleName();
+//	public static final String PREF = "BMI_PREF";
+//  public static final String PREF_HEIGHT = "BMI_HEIGHT";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		initViews();
+//		restorePrefs();
 	    setListensers();
 	}
 
@@ -43,6 +48,17 @@ public class MainActivity extends Activity {
 	  show_suggest = (TextView) findViewById(R.id.suggest);
 	}
 
+    // Restore preferences
+    private void restorePrefs() {
+//        SharedPreferences settings = getSharedPreferences(PREF, 0);
+//        String pref_height = settings.getString(PREF_HEIGHT, "");
+    	String pref_height = Pref.getHeight(this);
+        if(! "".equals(pref_height)) {
+        	num_height.setText(pref_height);
+            num_weight.requestFocus();
+        }
+    }
+    
 	// Listen for button clicks
 	private void setListensers() {
 		Log.d(TAG, "set Listensers");
@@ -102,7 +118,10 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		switch(item.getItemId()) {
 		case R.id.action_about:
-            openOptionsDialog();
+//          openOptionsDialog();
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setClass(MainActivity.this, Pref.class);
+			startActivity(intent);
             break;
 	   	case R.id.action_close:
 	            finish();
@@ -120,19 +139,19 @@ public class MainActivity extends Activity {
 	    	    public void onClick(DialogInterface dialoginterface, int i){}
 	        });
 	    dialog.setNegativeButton(R.string.label_homepage,
-		    	new DialogInterface.OnClickListener(){
-		    	    public void onClick(DialogInterface dialoginterface, int i){
-		    	    	// open browser
-//		                Uri uri = Uri.parse("http://android.gasolin.idv.tw/");
-		    	    	// open map
-//		    	    	Uri uri = Uri.parse("geo:25.047192, 121.516981?z=17");
-		    	    	// phone call
-//		    	        Uri uri = Uri.parse("tel:12345678"); 
-		    	    	Uri uri = Uri.parse(getString(R.string.homepage_uri));
-		                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-		                startActivity(intent);
-		    	    }
-		        });
+		    new DialogInterface.OnClickListener(){
+		   	    public void onClick(DialogInterface dialoginterface, int i){
+		   	    	// open browser
+//	                Uri uri = Uri.parse("http://android.gasolin.idv.tw/");
+	    	    	// open map
+//	    	    	Uri uri = Uri.parse("geo:25.047192, 121.516981?z=17");
+	    	    	// phone call
+//	    	        Uri uri = Uri.parse("tel:12345678"); 
+	    	    	Uri uri = Uri.parse(getString(R.string.homepage_uri));
+	                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+	                startActivity(intent);
+	    	    }
+	        });
 	    dialog.show();
 	};
 
@@ -154,11 +173,19 @@ public class MainActivity extends Activity {
     public void onResume() {
         super.onResume();
         Log.v(TAG,"onResume");
+        restorePrefs();
     }
 
     public void onPause() {
         super.onPause();
         Log.v(TAG,"onPause");
+        // Save user preferences. use Editor object to make changes.
+//        SharedPreferences settings = getSharedPreferences(PREF, 0);
+//        Editor editor = settings.edit();
+//        editor.putString(PREF_HEIGHT, num_height.getText().toString());
+//        editor.commit();
+        
+        Pref.setHeight(this, num_height.getText().toString());
     }
 
     public void onStop() {
