@@ -8,11 +8,16 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ReportActivity extends Activity {
+//	private static final String TAG = "Report";
+	private static final String TAG = ReportActivity.class.getSimpleName();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,6 +32,7 @@ public class ReportActivity extends Activity {
     private TextView show_suggest;
 
     private void initViews() {
+    	if (Debug.On) Log.d(TAG, "init Views");
         button_back = (Button) findViewById(R.id.report_back);
         show_result = (TextView) findViewById(R.id.result);
         show_suggest = (TextView) findViewById(R.id.suggest);
@@ -34,27 +40,31 @@ public class ReportActivity extends Activity {
 
     private void showResults() {
         DecimalFormat nf = new DecimalFormat("0.00");
-
-        Bundle bunde = this.getIntent().getExtras();
-        double height = Double.parseDouble(bunde.getString("KEY_HEIGHT")) / 100;
-        double weight = Double.parseDouble(bunde.getString("KEY_WEIGHT"));
-        double BMI = weight / (height * height);
-        show_result.setText(getString(R.string.bmi_result) + nf.format(BMI));
-
-        //Give health advice
-        if (BMI > 25) {
-        	showNotification(BMI);
-        	show_suggest.setText(R.string.advice_heavy);
-        } else if (BMI < 20) {
-        	show_suggest.setText(R.string.advice_light);
-        } else {
-        	show_suggest.setText(R.string.advice_average);
+        try {
+	        Bundle bunde = this.getIntent().getExtras();
+	        double height = Double.parseDouble(bunde.getString("KEY_HEIGHT")) / 100;
+	        double weight = Double.parseDouble(bunde.getString("KEY_WEIGHT"));
+	        double BMI = weight / (height * height);
+	        show_result.setText(getString(R.string.bmi_result) + nf.format(BMI));
+	
+	        //Give health advice
+	        if (BMI > 25) {
+	        	showNotification(BMI);
+	        	show_suggest.setText(R.string.advice_heavy);
+	        } else if (BMI < 20) {
+	        	show_suggest.setText(R.string.advice_light);
+	        } else {
+	        	show_suggest.setText(R.string.advice_average);
+	        }
+        } catch (Exception err) {
+        	if (Debug.On) Log.e(TAG, "error: " + err.toString());
+        	Toast.makeText(ReportActivity.this, R.string.input_error, Toast.LENGTH_SHORT).show();
         }
-
     }
 
     //Listen for button clicks
     private void setListensers() {
+    	if (Debug.On) Log.d(TAG, "set Listensers");
         button_back.setOnClickListener(backMain);
     }
 

@@ -1,22 +1,22 @@
 package com.demo.android.bmi;
 
-import java.text.DecimalFormat;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
+//	private static final String TAG = "Main";
+	private static final String TAG = MainActivity.class.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
 	private TextView show_suggest;
 	
 	private void initViews() {
+	  Log.d(TAG, "init Views");
 	  button_calc = (Button) findViewById(R.id.submit);
 	  num_height = (EditText) findViewById(R.id.height);
 	  num_weight = (EditText) findViewById(R.id.weight);
@@ -43,6 +44,7 @@ public class MainActivity extends Activity {
 
 	// Listen for button clicks
 	private void setListensers() {
+		Log.d(TAG, "set Listensers");
 	    button_calc.setOnClickListener(calcBMI);
     }
 	
@@ -66,6 +68,7 @@ public class MainActivity extends Activity {
 //            	show_suggest.setText(R.string.advice_average);
 //            }
 //            } catch (Exception obj) {
+//        		Log.e(TAG, "error: " + err.toString());
 //            	Toast.makeText(MainActivity.this, R.string.input_error, Toast.LENGTH_SHORT).show();
 //            }
 //        }
