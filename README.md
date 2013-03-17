@@ -23,9 +23,11 @@ $ git clone https://github.com/gasolin/androidbmi5th.git
 $ git clone https://github.com/gasolin/androidbmi5th.git -b [branch_name] [/some/folder]
 
 
-本書的其它範例：
+## 本書的其它範例：
 
 * [BMITest] (https://github.com/gasolin/androidbmitest5th)
+
+## 授權
 
 本書提供的範例無授權問題，可自由用於各種場合。
 若對範例有疑問，可以直接在 [Issues](https://github.com/gasolin/androidbmi5th/issues) 中提問。
