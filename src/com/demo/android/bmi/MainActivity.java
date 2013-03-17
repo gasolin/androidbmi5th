@@ -73,8 +73,12 @@ public class MainActivity extends Activity {
 		public void onClick(View v) {
 			//Switch to report page
 	        Intent intent = new Intent();
-//	        intent.setClass(MainActivity.this, ReportActivity.class);
-	        intent.setAction("bmi.action.report");
+	        intent.setClass(MainActivity.this, ReportActivity.class);
+//	        intent.setAction("bmi.action.report");
+	        Bundle bundle = new Bundle();
+	        bundle.putString("KEY_HEIGHT", num_height.getText().toString());
+	        bundle.putString("KEY_WEIGHT", num_weight.getText().toString());
+	        intent.putExtras(bundle);
 	        startActivity(intent);
 		}
     };
