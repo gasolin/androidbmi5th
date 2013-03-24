@@ -1,12 +1,14 @@
 package com.demo.android.bmi;
 
+import java.text.DecimalFormat;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -90,18 +92,65 @@ public class MainActivity extends Activity {
 //            }
 //        }
 		
+//		public void onClick(View v) {
+//			//Switch to report page
+//	        Intent intent = new Intent();
+//	        intent.setClass(MainActivity.this, ReportActivity.class);
+////	        intent.setAction("bmi.action.report");
+//	        Bundle bundle = new Bundle();
+//	        bundle.putString("KEY_HEIGHT", num_height.getText().toString());
+//	        bundle.putString("KEY_WEIGHT", num_weight.getText().toString());
+//	        intent.putExtras(bundle);
+//	        startActivity(intent);
+//		}
+
 		public void onClick(View v) {
-			//Switch to report page
-	        Intent intent = new Intent();
-	        intent.setClass(MainActivity.this, ReportActivity.class);
-//	        intent.setAction("bmi.action.report");
-	        Bundle bundle = new Bundle();
-	        bundle.putString("KEY_HEIGHT", num_height.getText().toString());
-	        bundle.putString("KEY_WEIGHT", num_weight.getText().toString());
-	        intent.putExtras(bundle);
-	        startActivity(intent);
+			new BmiCalcTask().execute();
 		}
     };
+    
+    private class BmiCalcTask extends AsyncTask<Void, Void, Void> {
+    	  private ProgressDialog Dialog = new ProgressDialog(MainActivity.this);
+    	  Double BMI;
+    	  Double height;
+    	  Double weight;
+    			
+    	  @Override
+    	  protected void onPreExecute() {
+    	    // TODO Auto-generated method stub
+    	    super.onPreExecute();
+    	    Dialog.setMessage("calc...");
+    	    Dialog.show();
+
+    	    height = Double.parseDouble(num_height.getText().toString()) / 100;
+    	    weight = Double.parseDouble(num_weight.getText().toString());
+    	  }
+    			
+    	  @Override
+    	  protected Void doInBackground(Void... arg0) {
+    	    // TODO Auto-generated method stub
+    	    BMI = weight / (height * height);
+    	    return null;
+    	  }
+
+    	  @Override
+    	  protected void onPostExecute(Void unused) {
+    	    // TODO Auto-generated method stub
+    	    Dialog.dismiss();
+
+    	    DecimalFormat nf = new DecimalFormat("0.00");
+    	    show_result.setText(getText(R.string.bmi_result) + nf.format(BMI));
+
+    	    // Give health advice
+    	    if (BMI > 25) {
+    	      show_suggest.setText(R.string.advice_heavy);
+    	    } else if (BMI < 20) {
+    	      show_suggest.setText(R.string.advice_light);
+    	    } else {
+    	      show_suggest.setText(R.string.advice_average);
+    	    }
+    	  }
+    	}
     
 //    protected static final int MENU_SETTINGS = Menu.FIRST;
     
@@ -124,8 +173,8 @@ public class MainActivity extends Activity {
 			startActivity(intent);
             break;
 	   	case R.id.action_close:
-	            finish();
-	            break;
+	        finish();
+	        break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
