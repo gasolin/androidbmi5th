@@ -1,15 +1,19 @@
 package com.demo.android.bmi;
 
 import java.text.DecimalFormat;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +32,14 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.v(TAG,"onCreate");
+		
+		// force locale
+		Resources res = getResources();
+		Configuration conf = res.getConfiguration();
+		conf.locale = Locale.TRADITIONAL_CHINESE;
+		DisplayMetrics dm = res.getDisplayMetrics();
+		res.updateConfiguration(conf, dm);
+		
 		setContentView(R.layout.activity_main);
 		
 		initViews();
