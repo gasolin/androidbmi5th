@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/height"
         android:layout_centerHorizontal="true"
-        android:text="體重 (kg)" />
+        android:text="@string/bmi_weight" />
 
     <EditText
         android:id="@+id/weight"
