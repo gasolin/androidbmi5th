@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- report -->
-    <string name="report_title">BMI 報告</string>
-    <string name="report_back">前一頁</string>
+    <string name="report_title">BMI Report</string>
+    <string name="report_back"Back</string>
 </resources>
