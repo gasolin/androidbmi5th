@@ -20,4 +20,7 @@
     <string name="about_msg">Android BMI Calc</string>
     <string name="label_homepage">首頁</string>
     <string name="homepage_uri">http://android.gasolin.idv.tw/</string>
+    <!-- report -->
+    <string name="report_title">BMI 報告</string>
+    <string name="report_back">前一頁</string>
 </resources>
