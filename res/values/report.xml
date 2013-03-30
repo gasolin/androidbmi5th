@@ -2,5 +2,5 @@
 <resources>
     <!-- report -->
     <string name="report_title">BMI Report</string>
-    <string name="report_back"Back</string>
+    <string name="report_back"></string>Back</string>
 </resources>
