@@ -8,7 +8,7 @@
         android:title="@string/action_about"/>
 
     <item android:id="@+id/action_close"
-  		android:icon="@android:drawable/ic_menu_close_clear_cancel"
+  		android:icon="@android:drawable/ic_menu_recent_history"
   		android:title="@string/action_close"
   		android:showAsAction="ifRoom|withText"/>
 </menu>
