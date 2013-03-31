@@ -30,6 +30,6 @@
 			    <category android:name="android.intent.category.DEFAULT" />
 		    </intent-filter>
         </activity>
-        <activity android:name="Pref"></activity>
+        <activity android:name="com.demo.android.bmi.Pref"></activity>
     </application>
 </manifest>
