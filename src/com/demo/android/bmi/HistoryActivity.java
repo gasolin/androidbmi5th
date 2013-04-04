@@ -21,7 +21,7 @@ public class HistoryActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_history);
 		//Tell the list view which view to display when the list is empty
-//        getListView().setEmptyView(findViewById(R.id.empty));
+        getListView().setEmptyView(findViewById(R.id.empty));
 		setAdapter();
 	}
 	
