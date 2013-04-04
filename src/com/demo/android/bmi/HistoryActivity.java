@@ -7,19 +7,21 @@ import android.widget.ArrayAdapter;
 public class HistoryActivity extends ListActivity {
 	
 	static final String[] records = new String[] {
-	    "20",
+	    /*"20",
 	    "21",
 	    "22",
 	    "24",
 	    "23",
 	    "22",
-	    "20"
+	    "20"*/
 	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_history);
+		//Tell the list view which view to display when the list is empty
+//        getListView().setEmptyView(findViewById(R.id.empty));
 		setAdapter();
 	}
 	
@@ -29,9 +31,13 @@ public class HistoryActivity extends ListActivity {
 //			    records);
 //		setListAdapter(adapter);
 
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-				R.array.records,
-				android.R.layout.simple_list_item_1);
-		setListAdapter(adapter);
+//		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//				R.array.records,
+//				android.R.layout.simple_list_item_1);
+//		setListAdapter(adapter);
+
+		setListAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                records));
     }
 }
