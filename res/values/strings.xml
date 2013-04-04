@@ -20,4 +20,14 @@
     <string name="about_msg">Android BMI Calc</string>
     <string name="label_homepage">Homepage</string>
     <string name="homepage_uri">http://android.gasolin.idv.tw/</string>
+    <!-- array -->
+    <string-array name="records">
+     <item>20</item>
+     <item>21</item>
+     <item>22</item>
+     <item>24</item>
+     <item>23</item>
+     <item>22</item>
+     <item>20</item>
+    </string-array>
 </resources>

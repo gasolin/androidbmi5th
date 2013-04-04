@@ -15,18 +15,23 @@ public class HistoryActivity extends ListActivity {
 	    "22",
 	    "20"
 	};
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_history);
 		setAdapter();
 	}
 	
 	private void setAdapter() {
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-			    android.R.layout.simple_list_item_1,
-			    records);
+//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//			    android.R.layout.simple_list_item_1,
+//			    records);
+//		setListAdapter(adapter);
+
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+				R.array.records,
+				android.R.layout.simple_list_item_1);
 		setListAdapter(adapter);
     }
 }
