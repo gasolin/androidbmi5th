@@ -29,5 +29,5 @@ $ git clone https://github.com/gasolin/androidbmi5th.git -b [branch_name] [/some
 
 ## 授權
 
-本書提供的範例無授權問題，可自由用於各種場合。
+本書提供的範例以[MIT](http://opensource.org/licenses/MIT)授權發佈，可自由用於各種場合，無需額外授權。
 若對範例有疑問，可以直接在 [Issues](https://github.com/gasolin/androidbmi5th/issues) 中提問。
