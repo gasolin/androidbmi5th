@@ -51,12 +51,12 @@ public class HistoryActivity extends ListActivity {
 	    mCursor = mDbHelper.getAll();
 	    startManagingCursor(mCursor);
 		
-	    String[] from_column = new String[]{"history"};
-	    int[] to_layout = new int[]{android.R.id.text1};
+	    String[] from_column = new String[]{DB.KEY_ITEM, DB.KEY_CREATED};
+	    int[] to_layout = new int[]{android.R.id.text1, android.R.id.text2};
 
 	    // Now create a simple cursor adapter
 	    SimpleCursorAdapter adapter =
-	                new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
+	                new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
 	                		mCursor, from_column, to_layout);
 	    setListAdapter(adapter);
     }

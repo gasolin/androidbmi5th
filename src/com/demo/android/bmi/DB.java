@@ -10,6 +10,14 @@ public class DB {
 	private Context mContext = null;
 	private DatabaseHelper dbHelper ;
 	private SQLiteDatabase db;
+		
+	private static final String DATABASE_NAME = "history.db";
+    private static final int DATABASE_VERSION = 4;
+	private static final String DATABASE_TABLE = "history";
+
+	public static final String KEY_ROWID = "_id";
+	public static final String KEY_ITEM = "item";
+	public static final String KEY_CREATED = "created";
 
 	/** Constructor */
 	public DB(Context context) {
@@ -28,16 +36,11 @@ public class DB {
 
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
-		private static final String DATABASE_NAME = "history.db";
-	    private static final int DATABASE_VERSION = 1;
-	    
-	    private static final String DATABASE_TABLE = "history";
-	    
-	    private static final String DATABASE_CREATE =
-	    	    "CREATE TABLE history("
-	    	        +"_id INTEGER PRIMARY KEY,"
-	    	        +"item TEXT NOT NULL,"
-	    	        +"created TIMESTAMP"
+		private static final String DATABASE_CREATE =
+	    	    "CREATE TABLE " + DATABASE_TABLE + "("
+	    	        + KEY_ROWID + " INTEGER PRIMARY KEY,"
+	    	        + KEY_ITEM + " TEXT NOT NULL,"
+	    	        + KEY_CREATED + " TIMESTAMP"
 	    	    +");";
 	    
 //		public DatabaseHelper(Context context, String name,
@@ -65,7 +68,7 @@ public class DB {
 
 	//CRUD
 	public Cursor getAll() {
-	    return db.rawQuery("SELECT * FROM history", null);
+	    return db.rawQuery("SELECT * FROM "+ DATABASE_TABLE + " ORDER BY "+ KEY_CREATED +" DESC", null);
 	}
 
 }
