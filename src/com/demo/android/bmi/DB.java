@@ -1,5 +1,10 @@
 package com.demo.android.bmi;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -12,7 +17,7 @@ public class DB {
 	private SQLiteDatabase db;
 		
 	private static final String DATABASE_NAME = "history.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 3;
 	private static final String DATABASE_TABLE = "history";
 
 	public static final String KEY_ROWID = "_id";
@@ -67,8 +72,37 @@ public class DB {
 	
 
 	//CRUD
-	public Cursor getAll() {
-	    return db.rawQuery("SELECT * FROM "+ DATABASE_TABLE + " ORDER BY "+ KEY_CREATED +" DESC", null);
-	}
+//	public Cursor getAll() {
+//	    return db.rawQuery("SELECT * FROM "+ DATABASE_TABLE + " ORDER BY "+ KEY_CREATED +" DESC", null);
+//	}
+	
+//	String[] strCols = new String[] {
+//		    KEY_ROWID,
+//		    KEY_ITEM,
+//		    KEY_CREATED
+//		};
 
+	// get all entries
+	public Cursor getAll() {
+	    return db.query(DATABASE_TABLE, //Which table to Select
+//	         strCols,// Which columns to return
+	    	 new String[] {KEY_ROWID, KEY_ITEM, KEY_CREATED},
+	         null, // WHERE clause
+	         null, // WHERE arguments
+	         null, // GROUP BY clause
+	         null, // HAVING clause
+	         KEY_CREATED + " DESC" //Order-by clause
+	         );
+	}
+	
+	// add an entry
+	public long create(String record) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ENGLISH);
+		Date now = new Date();
+	    ContentValues args = new ContentValues();
+	    args.put(KEY_ITEM, record);
+	    args.put(KEY_CREATED, df.format(now.getTime()));
+
+	    return db.insert(DATABASE_TABLE, null, args);
+	}
 }
