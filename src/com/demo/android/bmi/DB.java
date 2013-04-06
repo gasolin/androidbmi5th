@@ -105,4 +105,31 @@ public class DB {
 
 	    return db.insert(DATABASE_TABLE, null, args);
 	}
+	
+	//remove an entry
+	public boolean delete(long rowId) {
+	    return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+	}
+	
+	//query single entry
+	public Cursor get(long rowId) throws SQLException {
+	    Cursor mCursor = db.query(true,
+	            DATABASE_TABLE,
+	            new String[] {KEY_ROWID, KEY_ITEM, KEY_CREATED},
+	            KEY_ROWID + "=" + rowId,
+	            null, null, null, null, null);
+	    if (mCursor != null) {
+	        mCursor.moveToFirst();
+	    }
+	    return mCursor;
+	}
+
+	//update
+	public boolean update(long rowId, String record) {
+	    Date now = new Date();
+	    ContentValues args = new ContentValues();
+	    args.put(KEY_ITEM, record);
+
+	    return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+	}
 }

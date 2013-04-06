@@ -1,11 +1,11 @@
 package com.demo.android.bmi;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleCursorAdapter;
 
 public class HistoryActivity extends ListActivity {
@@ -66,6 +66,14 @@ public class HistoryActivity extends ListActivity {
 	                		mCursor, from_column, to_layout);
 	    
 	    setListAdapter(adapter);
+	    
+	    getListView().setOnItemClickListener(new OnItemClickListener() {
+	    	  @Override
+	    	  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	    	    mDbHelper.delete(position);
+	    	    fillData();
+	    	  }
+	    	});
     }
 	
 	
