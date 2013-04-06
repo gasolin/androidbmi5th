@@ -1,16 +1,18 @@
 package com.demo.android.bmi;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.SimpleCursorAdapter;
 
 public class HistoryActivity extends ListActivity {
 	
 	private DB mDbHelper;
 	private Cursor mCursor;
-
+	
 	static final String[] records = new String[] {
 	    /*"20",
 	    "21",
@@ -48,6 +50,10 @@ public class HistoryActivity extends ListActivity {
 //                android.R.layout.simple_list_item_1,
 //                records));
 	    
+	    fillData();
+	}
+
+	private void fillData() {
 	    mCursor = mDbHelper.getAll();
 	    startManagingCursor(mCursor);
 		
@@ -58,6 +64,9 @@ public class HistoryActivity extends ListActivity {
 	    SimpleCursorAdapter adapter =
 	                new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
 	                		mCursor, from_column, to_layout);
+	    
 	    setListAdapter(adapter);
     }
+	
+	
 }

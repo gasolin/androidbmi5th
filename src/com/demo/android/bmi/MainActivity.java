@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,10 +30,14 @@ public class MainActivity extends Activity {
 //	public static final String PREF = "BMI_PREF";
 //  public static final String PREF_HEIGHT = "BMI_HEIGHT";
 
+	private DB mDbHelper;
+	private Cursor mCursor;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.v(TAG,"onCreate");
+		
 //		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		// force locale
 		Resources res = getResources();
@@ -153,6 +158,12 @@ public class MainActivity extends Activity {
 
     	    DecimalFormat nf = new DecimalFormat("0.00");
     	    show_result.setText(getText(R.string.bmi_result) + nf.format(BMI));
+    	    
+    	    // record calcBMI result to db
+    	    mDbHelper = new DB(MainActivity.this);
+    	    mDbHelper.open();
+    	    mDbHelper.create(nf.format(BMI));
+    	    mDbHelper.close();
 
     	    // Give health advice
     	    if (BMI > 25) {
