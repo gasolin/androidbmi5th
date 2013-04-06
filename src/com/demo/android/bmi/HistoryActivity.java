@@ -47,7 +47,11 @@ public class HistoryActivity extends ListActivity {
 //		setListAdapter(new ArrayAdapter<String>(this,
 //                android.R.layout.simple_list_item_1,
 //                records));
-	    
+
+            fillData();
+	}
+      
+	private void fillData() {  
 	    mCursor = mDbHelper.getAll();
 	    startManagingCursor(mCursor);
 		
@@ -59,5 +63,5 @@ public class HistoryActivity extends ListActivity {
 	                new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
 	                		mCursor, from_column, to_layout);
 	    setListAdapter(adapter);
-    }
+        }
 }
