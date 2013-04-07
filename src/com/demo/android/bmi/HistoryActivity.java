@@ -70,7 +70,12 @@ public class HistoryActivity extends ListActivity {
 	    getListView().setOnItemClickListener(new OnItemClickListener() {
 	    	  @Override
 	    	  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	    	    mDbHelper.delete(position);
+
+//	    	      Cursor c = ((SimpleCursorAdapter)getListView().getAdapter()).getCursor();
+//	    	      c.moveToPosition(position);
+//	    	      mDbHelper.delete(c.getLong(0));
+
+	    	    mDbHelper.delete(id);
 	    	    fillData();
 	    	  }
 	    	});
