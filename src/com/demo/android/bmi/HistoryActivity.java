@@ -1,12 +1,15 @@
 package com.demo.android.bmi;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +40,7 @@ public class HistoryActivity extends ListActivity {
 		info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
 		switch (item.getItemId()) { 
-		    case 001:
+		    case R.id.action_delete:
 		        mDbHelper.delete(info.id);
 	             fillData();
 	             break;
@@ -48,7 +51,8 @@ public class HistoryActivity extends ListActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		// TODO Auto-generated method stub
-		menu.add(0, 001, 0,  "刪除");
+		getMenuInflater().inflate(R.menu.context_history, menu);
+//		menu.add(0, 001, 0,  "刪除");
 	    menu.setHeaderTitle("要怎麼處理這筆項目？");
 	    super.onCreateContextMenu(menu, v, menuInfo);
 	}
