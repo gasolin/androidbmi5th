@@ -4,13 +4,15 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CursorAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 public class HistoryActivity extends ListActivity {
@@ -29,11 +31,35 @@ public class HistoryActivity extends ListActivity {
 	};
 	
 	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		AdapterView.AdapterContextMenuInfo info;
+		info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+		switch (item.getItemId()) { 
+		    case 001:
+		        mDbHelper.delete(info.id);
+	             fillData();
+	             break;
+		}
+		return super.onContextItemSelected(item);
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		// TODO Auto-generated method stub
+		menu.add(0, 001, 0,  "刪除");
+	    menu.setHeaderTitle("要怎麼處理這筆項目？");
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	}
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_history);
 		//Tell the list view which view to display when the list is empty
         getListView().setEmptyView(findViewById(R.id.empty));
+        registerForContextMenu(getListView());
 		setAdapter();
 	}
 	
