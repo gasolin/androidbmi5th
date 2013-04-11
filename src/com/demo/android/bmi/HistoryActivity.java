@@ -12,16 +12,22 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.CursorAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 public class HistoryActivity extends ListActivity {
 	
 	private DB mDbHelper;
 	private Cursor mCursor;
+	private ActionMode.Callback mCallback;
+	private ActionMode mMode;
 	
 	static final String[] records = new String[] {
 	    /*"20",
@@ -42,8 +48,8 @@ public class HistoryActivity extends ListActivity {
 		switch (item.getItemId()) { 
 		    case R.id.action_delete:
 		        mDbHelper.delete(info.id);
-	             fillData();
-	             break;
+	            fillData();
+	            break;
 		}
 		return super.onContextItemSelected(item);
 	}
@@ -63,8 +69,64 @@ public class HistoryActivity extends ListActivity {
 		setContentView(R.layout.activity_history);
 		//Tell the list view which view to display when the list is empty
         getListView().setEmptyView(findViewById(R.id.empty));
-        registerForContextMenu(getListView());
-		setAdapter();
+//        registerForContextMenu(getListView());
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        setAdapter();
+		
+		mCallback = new ActionMode.Callback() {
+			/** Invoked whenever the action mode is shown. This is invoked immediately after onCreateActionMode */
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+ 
+            /** Called when user exits action mode */
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                mMode = null;
+            }
+ 
+            /** This is called when the action mode is created. This is called by startActionMode() */
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                mode.setTitle("Demo");
+                getMenuInflater().inflate(R.menu.context_history, menu);
+                return true;
+            }
+ 
+            /** This is called when an item in the context menu is selected */
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch(item.getItemId()){
+                case R.id.action_delete:
+                	int position = getListView().getCheckedItemPosition();
+                	mCursor.moveToPosition(position);
+                	mDbHelper.delete(mCursor.getLong(0));
+    	            fillData();
+                    mode.finish();    // exists the action mode
+                    break;
+                }
+                return false;
+            }
+		};
+		
+		OnItemLongClickListener listener = new OnItemLongClickListener() {
+			 
+            @Override
+            public boolean onItemLongClick(AdapterView<?> view, View row,
+					int position, long id) {
+                if(mMode!=null)
+                    return false;
+                else
+                    mMode = startActionMode(mCallback);
+                    getListView().setItemChecked(position, true);
+                return true;
+             }
+        };
+
+        getListView().setOnItemLongClickListener(listener);
+        
+        
 	}
 	
 	private void setAdapter() {
