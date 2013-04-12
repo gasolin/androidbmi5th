@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -151,11 +152,25 @@ public class HistoryActivity extends ListActivity {
 	}
 
 	private void fillData() {
-	    mCursor = mDbHelper.getAll();
+//	    mCursor = mDbHelper.getAll();
+	    
+	    mCursor = getContentResolver().query(
+	    		  ContactsContract.Contacts.CONTENT_URI,
+	    		  null,
+	    		  null,
+	    		  null,
+	    		  ContactsContract.Contacts.DISPLAY_NAME + " ASC");
 	    startManagingCursor(mCursor);
-		
-	    String[] from_column = new String[]{DB.KEY_ITEM, DB.KEY_CREATED};
-	    int[] to_layout = new int[]{R.id.text1, R.id.text2};
+	    		
+//	    String[] from_column = new String[]{DB.KEY_ITEM, DB.KEY_CREATED};
+//      int[] to_layout = new int[]{R.id.text1, R.id.text2};
+
+	    String[] from_column = new String[]{ContactsContract.Contacts.DISPLAY_NAME};
+	    int[] to_layout = new int[]{android.R.id.text1};
+
+	    SimpleCursorAdapter adapter =
+        new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
+        		mCursor, from_column, to_layout);
 
 	    // Now create a simple cursor adapter
 //	    SimpleCursorAdapter adapter =
@@ -163,8 +178,8 @@ public class HistoryActivity extends ListActivity {
 //	                		mCursor, from_column, to_layout);
 	    
 	    // Now create list with cursor
-	    ListCursorAdapter adapter =
-                new ListCursorAdapter(this, mCursor);
+//	    ListCursorAdapter adapter =
+//                new ListCursorAdapter(this, mCursor);
 	    
 	    setListAdapter(adapter);
 	    
