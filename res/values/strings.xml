@@ -11,6 +11,8 @@
     <string name="advice_average">體型很棒喔</string>
     <string name="advice_heavy">你該節食了</string>
     <string name="input_error">要先輸入身高體重喔</string>
+    <string name="advice_history">上次測試結果：</string>
+    <string name="input_empty"></string>
     <!-- other -->
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>

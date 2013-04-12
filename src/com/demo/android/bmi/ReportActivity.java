@@ -3,6 +3,7 @@ package com.demo.android.bmi;
 import java.text.DecimalFormat;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,14 +28,15 @@ public class ReportActivity extends Activity {
         show_result = (TextView) findViewById(R.id.result);
         show_suggest = (TextView) findViewById(R.id.suggest);
     }
-
+    
+    private double BMI;
     private void showResults() {
         DecimalFormat nf = new DecimalFormat("0.00");
 
         Bundle bunde = this.getIntent().getExtras();
         double height = Double.parseDouble(bunde.getString("KEY_HEIGHT")) / 100;
         double weight = Double.parseDouble(bunde.getString("KEY_WEIGHT"));
-        double BMI = weight / (height * height);
+        BMI = weight / (height * height);
         show_result.setText(getString(R.string.bmi_result) + nf.format(BMI));
 
         //Give health advice
@@ -55,6 +57,13 @@ public class ReportActivity extends Activity {
 
     private Button.OnClickListener backMain = new Button.OnClickListener() {
         public void onClick(View v) {
+        	DecimalFormat nf = new DecimalFormat("0.00");
+        	
+        	Bundle bundle = new Bundle(); 
+            bundle.putString("BMI", nf.format(BMI));  
+            Intent intent = new Intent();  
+            intent.putExtras(bundle); 
+        	setResult(RESULT_OK, intent);
             // Close this Activity
             ReportActivity.this.finish();
         }
