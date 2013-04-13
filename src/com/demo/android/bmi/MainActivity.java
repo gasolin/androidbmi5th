@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -17,12 +16,20 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 
 public class MainActivity extends Activity {
 //	private static final String TAG = "Main";
@@ -32,7 +39,10 @@ public class MainActivity extends Activity {
 
 	private DB mDbHelper;
 	private Cursor mCursor;
-
+	
+	private AdView adView;
+	private RelativeLayout.LayoutParams ad_params;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +58,20 @@ public class MainActivity extends Activity {
 		
 		setContentView(R.layout.activity_main);
 		
+		// Look up the AdView as a resource and load a request.
+		RelativeLayout layout = (RelativeLayout)findViewById(R.id.mainLayout);
+		// Create the adView
+		adView = new AdView(this, AdSize.BANNER, "PUBLISHER_ID");
+	    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+	    params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+	    adView.setLayoutParams(params);
+	    // Add the adView to it
+	    layout.addView(adView);
+	    AdRequest adRequest = new AdRequest();
+	    adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
+	    // Initiate a generic request to load it with an ad
+	    adView.loadAd(adRequest);
+
 		initViews();
 //		restorePrefs();
 	    setListensers();
